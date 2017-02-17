@@ -1,0 +1,51 @@
+<div class="row">
+	<div class="small-12 medium-6 large-4 columns push-bottom-2x" *ngFor="let contact of contacts">
+			<div class="card">
+				<div class="card-content">
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<div class="form-group form-group-narrow card-field">
+								<label class="card-label">Contact Name</label>
+								{{contact.firstName}} {{contact.lastName}}
+							</div>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<div class="form-group form-group-narrow card-field">
+								<label class="card-label">Email</label>
+								{{contact.email}}
+							</div>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<div class="form-group form-group-narrow card-field">
+								<label class="card-label">Mobile Phone</label>
+								{{contact.mobilePhone}}
+							</div>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<div class="form-group form-group-narrow card-field">
+								<label class="card-label">Fax</label>
+								{{contact.fax}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-actions">
+					<a [routerLink]="['/contacts', contact.id, 'edit']" routerLinkActive="active" class="action-item" *authAccessControl="['contactAdmin']">
+						<span class="action">
+							<i class="tip-icon fa fa-pencil"></i>
+						</span>
+						<span class="mobile-text">Edit</span>
+					</a>
+					<a [routerLink]="['/contacts', contact.id]" routerLinkActive="active" class="action-item">
+						<span class="action">
+							<i class="tip-icon fa fa-search"></i>
+						</span>
+						<span class="mobile-text">View</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="small-12 columns">
+			<pagination [(pageNumber)]="pagination.pageNumber" [(pageSize)]="pagination.pageSize" [(totalResults)]="pagination.totalResults" [(totalPages)]="pagination.totalPages" (onPageChange)="searchContactsPaginate($event)"></pagination>
+		</div>
+</div>

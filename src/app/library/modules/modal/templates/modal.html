@@ -1,0 +1,20 @@
+<div class="modal-container" [ngClass]="{'show': isActive}">
+	<div class="modal">
+		<div class="modal-content">
+			<div class="panel">
+				<div class="panel-title primary">
+					{{modalTitle}}
+				</div>
+				<div class="panel-content">
+					{{modalConfig.content}}
+					<ng-content></ng-content>
+				</div>
+				<div class="panel-footer text-right">
+					<button type="button collapse" class="button alert" (click)="hideModal(modalId)">{{modalConfig.closeButtonText}}</button>
+					<button type="button collapse" class="button success" (click)="confirm(modalConfig.model)">{{modalConfig.actionButtonText}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop" [ngClass]="{'show': isActive}" (click)="hideModal(modalId)"></div>
+</div>

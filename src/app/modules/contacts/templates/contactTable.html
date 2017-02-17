@@ -1,0 +1,29 @@
+<div class="small-12">
+    <table class="stack hover text-center">
+      <thead>
+	      <tr>
+					<th class="text-center" width="200">Name</th>
+	        <th class="text-center" width="150">Email</th>
+	        <th class="text-center">Mobile Phone</th>
+	        <th class="text-center" width="250">Type</th>
+	        <th class="text-center" width="150">View/Edit</th>
+	      </tr>
+      </thead>
+      <tbody>
+				<tr *ngFor="let contact of contacts">
+					<td>{{contact.firstName}} {{contact.lastName}}</td>
+					<td>{{contact.email}}</td>
+					<td>{{contact.mobilePhone}}</td>
+					<td>{{contact.type}}</td>
+					<td class="text-center">
+						<div class="action-buttons">
+							<a [routerLink]="['/contacts', contact.id]" routerLinkActive="active" class="action"><i class="fa fa-search"></i></a>
+							<a [routerLink]="['/contacts', contact.id, 'edit']" routerLinkActive="active" class="action" ><i class="fa fa-pencil-square-o" *authAccessControl="['contactAdmin']"></i></a>
+							<a class="action" (click)=openModal(contact) *authAccessControl="['contactAdmin']"><i class="fa fa-times"></i></a>
+						</div>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+		<modal name="removeContact" title="Remove Contact" (onConfirm)="confirmModal($event)"></modal>
+</div>

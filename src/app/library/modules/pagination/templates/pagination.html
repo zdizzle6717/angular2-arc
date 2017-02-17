@@ -1,0 +1,22 @@
+<div class="pagination-controls" *ngIf="totalNumOfPages > 1">
+	<div class="controls-list">
+		<button class="page-button" (click)="selectPage(1)" [disabled]="currentPageNumber == 1">
+			<span class="fa fa-angle-double-left"></span>
+		</button>
+		<button class="page-button" (click)="selectPage(currentPageNumber - 1)" [disabled]="currentPageNumber == 1">
+			<span class="fa fa-angle-left"></span>
+		</button>
+
+		<button class="page-button" [ngClass]="{'active': pageNumber == currentPageNumber}" (click)="selectPage(pageNumber)" *ngFor="let pageNumber of pages">{{pageNumber}}</button>
+
+		<button class="page-button" (click)="selectPage(currentPageNumber + 1)" [disabled]="currentPageNumber == totalNumOfPages">
+			<span class="fa fa-angle-right"></span>
+		</button>
+		<button class="page-button" (click)="selectPage(totalNumOfPages)" [disabled]="currentPageNumber == totalNumOfPages">
+			<span class="fa fa-angle-double-right"></span>
+		</button>
+	</div>
+	<div class="pages-info">
+		{{currentPageNumber}} of {{totalNumOfPages}} Total Pages
+	</div>
+</div>

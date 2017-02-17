@@ -1,0 +1,45 @@
+input {
+	height: 40px;
+}
+
+.search-input {
+	position: relative;
+
+	input {
+		padding: .5rem 2.3rem .5rem .5rem;
+	}
+
+	.search-icon {
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 39px;
+		width: 39px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+label {
+	&.inline {
+		display: inline-flex;
+		align-items: center;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	input{
+		&[type='radio'],
+		&[type='checkbox'] {
+			height: 20px;
+			margin-bottom: 0;
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}

@@ -1,0 +1,59 @@
+<h1 *ngIf="!provider.id">Create New Provider</h1>
+<h1 *ngIf="provider.id">Edit Provider</h1>
+<hr/>
+<form class="row" (ngSubmit)="saveProvider(provider)" #providerForm="ngForm">
+	<div class="form-group">
+		<div class="small-12 medium-4 columns">
+			<label for="name" class="required">Name</label>
+			<input type="text" class="form-control" id="name" name="name" [(ngModel)]="provider.name" required>
+		</div>
+		<div class="small-12 medium-4 columns">
+			<label for="dba" class="required">DBA</label>
+			<input type="text" class="form-control" id="dba" name="dba" [(ngModel)]="provider.dba" required>
+		</div>
+		<div class="small-12 medium-4 columns">
+			<label for="legalName" class="required">Legal Name</label>
+			<input type="text" class="form-control" id="legalName" name="legalName" [(ngModel)]="provider.legalName" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="small-12 medium-4 columns">
+			<label for="providerNumber" class="required">Provider Number</label>
+			<input type="text" class="form-control" id="providerNumber" name="providerNumber" [(ngModel)]="provider.providerNumber" required>
+		</div>
+		<div class="small-12 medium-4 columns">
+			<label for="identifierType" class="required">SSN or EIN</label>
+			<select id="identifierType" name="identifierType" [(ngModel)]="provider.identifierType" required>
+				<option value="ssn">SSN</option>
+				<option value="ein">EIN</option>
+			</select>
+		</div>
+		<div class="small-12 medium-4 columns">
+			<label for="identifier" class="required">Identifier (SSN/EIN)</label>
+			<input type="text" class="form-control" id="identifier" name="identifier" [(ngModel)]="provider.identifier" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="small-12 medium-4 columns">
+			<label for="email" class="required">Email</label>
+			<input type="text" class="form-control" id="email" name="email" [(ngModel)]="provider.email" required>
+		</div>
+		<div class="small-12 medium-4 columns">
+			<label for="phone" class="required">Phone #</label>
+			<input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="provider.phone" required>
+		</div>
+		<div class="small-12 medium-4 columns">
+			<label for="state" class="required">Active?</label>
+			<select id="state" name="state" [(ngModel)]="provider.state" required>
+				<option value="active">Active</option>
+				<option value="inactive">Inactive</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group text-right">
+		<div class="small-12 columns">
+			<button type="submit" class="button" [disabled]="providerForm.invalid" *ngIf="!provider.id">Create Provider</button>
+			<button type="submit" class="button" [disabled]="providerForm.invalid" *ngIf="provider.id">Update Provider</button>
+		</div>
+	</div>
+</form>

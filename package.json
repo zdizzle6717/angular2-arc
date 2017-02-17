@@ -8,7 +8,7 @@
     "typescript"
   ],
   "author": "Patrick Stapleton <patrick@angularclass.com>",
-  "homepage": "https://github.com/angularclass/angular2-webpack-starter",
+  "homepage": "https://github.com/zdizzle6717/angular2-arc",
   "license": "MIT",
   "scripts": {
     "build:aot:prod": "npm run clean:dist && npm run clean:aot && webpack --config config/webpack.prod.js  --progress --profile --bail",
@@ -81,6 +81,8 @@
     "@angularclass/hmr": "~1.2.2",
     "@angularclass/hmr-loader": "~3.0.2",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
+    "foundation-sites": "^6.3.0",
     "http-server": "^0.9.0",
     "ie-shim": "^0.1.0",
     "jasmine-core": "^2.5.2",
@@ -153,10 +155,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angularclass/angular2-webpack-starter.git"
+    "url": "https://github.com/zdizzle6717/angular2-arc.git"
   },
   "bugs": {
-    "url": "https://github.com/angularclass/angular2-webpack-starter/issues"
+    "url": "https://github.com/zdizzle6717/angular2-arc/issues"
   },
   "engines": {
     "node": ">= 4.2.1",

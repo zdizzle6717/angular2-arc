@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="small-12 medium-6 large-4 columns push-bottom-2x" *ngFor="let provider of providers">
+			<div class="card">
+				<div class="card-content">
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<div class="form-group form-group-narrow card-field">
+								<label class="card-label">Provider Name</label>
+								{{provider.name}}
+							</div>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<div class="form-group form-group-narrow card-field">
+								<label class="card-label">Legal Name</label>
+								{{provider.legalName}}
+							</div>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<div class="form-group form-group-narrow card-field">
+								<label class="card-label">Provider Number</label>
+								{{provider.providerNumber}}
+							</div>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<div class="form-group form-group-narrow card-field">
+								<label class="card-label">State</label>
+								{{provider.state}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-actions">
+					<a [routerLink]="['/providers', provider.id, 'edit']" routerLinkActive="active" class="action-item" *authAccessControl="['providerAdmin']">
+						<span class="action">
+							<i class="tip-icon fa fa-pencil"></i>
+						</span>
+						<span class="mobile-text">Edit</span>
+					</a>
+					<a [routerLink]="['/providers', provider.id]" routerLinkActive="active" class="action-item">
+						<span class="action">
+							<i class="tip-icon fa fa-search"></i>
+						</span>
+						<span class="mobile-text">View</span>
+					</a>
+				</div>
+			</div>
+		</div>
+</div>

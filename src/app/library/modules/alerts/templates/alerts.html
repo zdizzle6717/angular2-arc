@@ -1,0 +1,11 @@
+<div class="alert-container">
+	<div class="alert-box" *ngFor="let alert of alerts" [ngClass]="{'error': alert.type === 'error', 'info': alert.type === 'info', 'success': alert.type === 'success'}">
+		<div class="header">
+			<div class="title">{{alert.title}}</div>
+			<div class="close" (click)=closeAlert(alert)><span class="fa fa-times"></span></div>
+		</div>
+		<div class="content">
+			{{alert.message}}
+		</div>
+	</div>
+</div>

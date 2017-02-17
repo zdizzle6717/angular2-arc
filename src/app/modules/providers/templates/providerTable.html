@@ -1,0 +1,29 @@
+<div class="small-12">
+    <table class="stack hover text-center">
+      <thead>
+	      <tr>
+					<th class="text-center" width="200">Name</th>
+	        <th class="text-center" width="150">Email</th>
+	        <th class="text-center">Provider Number</th>
+	        <th class="text-center" width="250">Phone</th>
+	        <th class="text-center" width="150">View/Edit</th>
+	      </tr>
+      </thead>
+      <tbody>
+				<tr *ngFor="let provider of providers">
+					<td>{{provider.name}}</td>
+					<td>{{provider.email}}</td>
+					<td>{{provider.providerNumber}}</td>
+					<td>{{provider.phone}}</td>
+					<td class="text-center">
+						<div class="action-buttons">
+							<a [routerLink]="['/providers', provider.id]" routerLinkActive="active" class="action"><i class="fa fa-search"></i></a>
+							<a [routerLink]="['/providers', provider.id, 'edit']" routerLinkActive="active" class="action" *authAccessControl="['providerAdmin']"><i class="fa fa-pencil-square-o"></i></a>
+							<a class="action" (click)=openModal(provider) *authAccessControl="['providerAdmin']"><i class="fa fa-times"></i></a>
+						</div>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+		<modal name="removeProvider" title="Remove Provider" (onConfirm)="confirmModal($event)"></modal>
+</div>

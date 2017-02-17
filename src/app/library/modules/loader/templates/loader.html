@@ -1,0 +1,15 @@
+<div class="loader-container" [ngClass]="{'show': isActive}">
+	<div class="loader" *ngIf="loaderType === 'standard'">
+			<div></div>
+	</div>
+	<div class="loader" *ngIf="loaderType === 'bars'">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<div *ngIf="loaderType === 'custom'">
+		<ng-content></ng-content>
+	</div>
+</div>
