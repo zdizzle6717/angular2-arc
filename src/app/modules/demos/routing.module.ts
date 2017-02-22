@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../../library/modules/auth';
 
 // Component Views
 import { DemoListComponent } from './components/views/demoList.component';
@@ -9,7 +10,8 @@ const appRoutes: Routes = [
 	{
 		path: 'demos',
 		component: DemoListComponent,
-		data: { title: 'Angular2 | All Demos' }
+		canActivate: [AuthGuard],
+		data: { title: 'Angular2 | Demos', accessLevel: ['siteAdmin'] }
 	}
 ];
 

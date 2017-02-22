@@ -1,22 +1,22 @@
 <h1 *ngIf="!contact.id">Create New Contact</h1>
 <h1 *ngIf="contact.id">Edit Contact</h1>
-<form class="row" (ngSubmit)="saveContact(contact)" #contactForm="ngForm">
+<form [formGroup]="contactForm" class="row" (ngSubmit)="saveContact(contactForm.value)">
 	<div class="form-group">
 		<div class="small-12 medium-3 columns">
 			<label for="firstName" class="required">First Name</label>
-			<input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="contact.firstName" required>
+			<input type="text" class="form-control" id="firstName" formControlName="firstName" required>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="middleName" class="required">Middle Name</label>
-			<input type="text" class="form-control" id="middleName" name="middleName" [(ngModel)]="contact.middleName" required>
+			<input type="text" class="form-control" id="middleName" formControlName="middleName" required>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="lastName" class="required">Last Name</label>
-			<input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="contact.lastName" required>
+			<input type="text" class="form-control" id="lastName" formControlName="lastName" required>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="gender" class="required">Gender</label>
-			<select id="gender" name="gender" [(ngModel)]="contact.gender" required>
+			<select id="gender" formControlName="gender" required>
 				<option value="male">Male</option>
 				<option value="female">Female</option>
 			</select>
@@ -25,19 +25,19 @@
 	<div class="form-group">
 		<div class="small-12 medium-3 columns">
 			<label for="email" class="required">Email</label>
-			<input type="text" class="form-control" id="email" name="email" [(ngModel)]="contact.email" required>
+			<input type="text" class="form-control" id="email" formControlName="email" required>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="mobilePhone" class="required">Mobile Phone</label>
-			<input type="text" class="form-control" id="mobilePhone" name="mobilePhone" [(ngModel)]="contact.mobilePhone" required>
+			<input type="text" class="form-control" id="mobilePhone" formControlName="mobilePhone" required>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="fax" class="required">Fax</label>
-			<input type="text" class="form-control" id="fax" name="fax" [(ngModel)]="contact.fax" required>
+			<input type="text" class="form-control" id="fax" formControlName="fax" required>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="type" class="required">Type</label>
-			<select id="type" name="type" [(ngModel)]="contact.type" required>
+			<select id="type" formControlName="type" required>
 				<option value="contact">Contact</option>
 				<option value="user">User</option>
 			</select>
@@ -46,19 +46,19 @@
 	<div class="form-group">
 		<div class="small-12 medium-3 columns">
 			<label for="status" class="small-12 inline required">
-				<input type="checkbox" class="form-control" id="status" name="status" [(ngModel)]="contact.status" required> Active?
+				<input type="checkbox" class="form-control" id="status" formControlName="status" required> Active?
 			</label>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label class="required">Marital Status</label>
 			<label class="small-12 inline">
-				<input type="radio" class="form-control" name="maritalStatus" [(ngModel)]="contact.maritalStatus" value="single" required>Single
+				<input type="radio" class="form-control" formControlName="maritalStatus" value="single" required>Single
 			</label>
 			<label class="small-12 inline">
-				<input type="radio" class="form-control" name="maritalStatus" [(ngModel)]="contact.maritalStatus" value="married" required>Married
+				<input type="radio" class="form-control" formControlName="maritalStatus" value="married" required>Married
 			</label>
 			<label class="small-12 inline">
-				<input type="radio" class="form-control" name="maritalStatus" [(ngModel)]="contact.maritalStatus" value="other" required>Other
+				<input type="radio" class="form-control" formControlName="maritalStatus" value="other" required>Other
 			</label>
 		</div>
 	</div>
@@ -66,6 +66,13 @@
 		<div class="small-12 columns">
 			<button type="submit" class="button" [disabled]="contactForm.invalid" *ngIf="!contact.id">Create Contact</button>
 			<button type="submit" class="button" [disabled]="contactForm.invalid" *ngIf="contact.id">Update Contact</button>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="small-12 columns">
+			<pre>
+				{{formErrors | json}}
+			</pre>
 		</div>
 	</div>
 </form>

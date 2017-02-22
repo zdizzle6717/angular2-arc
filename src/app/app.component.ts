@@ -2,6 +2,8 @@
  * Angular 2 decorators and services
  */
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { AppState } from './app.service';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
@@ -16,12 +18,12 @@ import { User } from './types/user';
  * Top Level Component
  */
 @Component({
-  selector: 'app',
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: [
-    './app.component.css'
-  ],
-  template: `
+    selector: 'app',
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: [
+        './app.component.css'
+    ],
+    template: `
     <site-header></site-header>
 		<div class="content-container">
 			<!-- Routed views go here -->
@@ -31,20 +33,27 @@ import { User } from './types/user';
 		</div>
 		<alerts></alerts>
 		<loader type="bars"></loader>
-    <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
     <site-footer></site-footer>
   `
 })
 export class AppComponent implements OnInit {
-  public angularclassLogo = 'assets/img/angularclass-avatar.png';
-  public name = 'Angular 2 Webpack Starter';
-  public url = 'https://twitter.com/AngularClass';
+    constructor(public appState: AppState, private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title) { }
 
-  constructor(
-    public appState: AppState
-  ) {}
+    public ngOnInit() {
+        console.log('Initial App State', this.appState.state);
 
-  public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
-  }
+        this.router.events.filter((event) => {
+            return event instanceof NavigationEnd;
+        })
+        .map(() => this.activatedRoute)
+        .map((route) => {
+            while (route.firstChild) {
+                route = route.firstChild;
+            }
+            return route;
+        })
+        .filter((route) => route.outlet === 'primary')
+        .mergeMap((route) => route.data)
+				.subscribe((event) => this.titleService.setTitle(event['title']));
+    }
 }

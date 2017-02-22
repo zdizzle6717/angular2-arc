@@ -11,11 +11,12 @@ import { RoutingModule } from './routing.module';
 import { DemoListComponent } from './components/views/demoList.component';
 
 // Services
+import { AuthGuard } from '../../library/modules/auth/services/authGuard.service';
 
 @NgModule({
   imports: [ CommonModule, FormsModule, RoutingModule ],
   declarations: [ DemoListComponent ],
-	providers: [ ],
+	providers: [ AuthGuard ],
   exports: [ ]
 })
 export class DemosModule { }

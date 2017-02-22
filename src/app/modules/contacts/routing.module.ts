@@ -11,7 +11,7 @@ const appRoutes: Routes = [
     {
         'path': 'contacts',
         'component': ContactSearchComponent,
-        'data': { 'title': 'Angular2 | All Contacts' }
+        'data': { 'title': 'Angular2 | Search Contacts' }
     },
     {
         'path': 'contacts/create',

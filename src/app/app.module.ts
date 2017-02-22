@@ -14,7 +14,7 @@ import { ROUTES } from './app.routes';
 // Global Configs
 import API_BASE_ROUTE from './configs/apiBaseRoute';
 import AUTHORIZED_ROUTES from './configs/authorizedRoutes';
-import USER_ROLES from './configs/userRoles';
+import ROLE_CONFIG from './configs/roleConfig';
 
 // Modules
 import { AlertsModule } from './library/modules/alerts/alerts.module';
@@ -33,21 +33,21 @@ import { RoutingModule } from './routing.module';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 
 // Component Views
-import { HomeComponent } from './main/components/views/home.component';
-import { LoginComponent } from './main/components/views/login.component';
-import { PageNotFoundComponent } from './main/components/views/pageNotFound.component';
-import { RegisterComponent } from './main/components/views/register.component';
+import { HomeComponent } from './modules/main/components/views/home.component';
+import { LoginComponent } from './modules/main/components/views/login.component';
+import { PageNotFoundComponent } from './modules/main/components/views/pageNotFound.component';
+import { RegisterComponent } from './modules/main/components/views/register.component';
 
 // Components
 import { AppComponent } from './app.component'; // Top level component
-import { HeaderComponent } from './main/components/header.component';
-import { FooterComponent } from './main/components/footer.component';
+import { HeaderComponent } from './modules/main/components/header.component';
+import { FooterComponent } from './modules/main/components/footer.component';
 
 // Directives
 
 // Services/Providers/Factories
 import { AppState, InternalStateType } from './app.service';
-import { CustomHttpProvider } from './main/providers/customHttp.provider';
+import { CustomHttpProvider } from './modules/main/providers/customHttp.provider';
 
 // Library Imports for Dependency Injection
 import { AlertService } from './library/modules/alerts';
@@ -98,7 +98,7 @@ type StoreType = {
     APP_PROVIDERS,
 		CustomHttpProvider,
     { provide: 'EGOV_API_BASE_ROUTE', useValue: API_BASE_ROUTE },
-    { provide: 'EGOV_USER_ROLES', useValue: USER_ROLES },
+    { provide: 'EGOV_USER_ROLES', useValue: ROLE_CONFIG },
     { provide: 'EGOV_AUTHORIZED_ROUTES', useValue: AUTHORIZED_ROUTES },
     AlertService,
     LoaderService,

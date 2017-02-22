@@ -34,9 +34,16 @@ export class UserService {
         sessionStorage.removeItem('storedUser');
     }
 
+    public setRedirect(config: any) {
+        this.currentUser.next(Object.assign(this.currentUser.value, {
+            'redirect': config
+        }));
+    }
+
     private extractUserData = (res: Response) => {
         let user = res.json();
         user.isAuthenticated = true;
+        user = Object.assign(this.currentUser.value, user);
 
         if (user) {
             this.userRoles.forEach((role: any) => {
@@ -48,6 +55,7 @@ export class UserService {
                 throw new Error('Oops! Make sure that the rolesConfig on the UI and API have matching values.');
             }
         }
+        user.redirect = user.redirect ? user.redirect : user.roleConfig.homeState;
 
         this.currentUser.next(user);
         sessionStorage.setItem('storedUser', JSON.stringify(user));

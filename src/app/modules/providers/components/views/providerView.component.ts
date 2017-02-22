@@ -6,39 +6,7 @@ import { Provider } from '../../types/provider';
 
 @Component({
     'selector': 'provider-view',
-    'template': `
-		<div class="row">
-      <h1 class="push-bottom-2x">Provider: <strong>{{provider.name}}</strong>
-      </h1>
-      <h5>ID: {{provider.id}}</h5>
-      <div class="row">
-          <div class="small-12 medium-4 columns">
-              <label>
-                  <u>{{provider.identifierType}}</u>
-              </label>
-              <p class="text-justify">
-                  {{provider.identifier}}
-              </p>
-          </div>
-          <div class="small-12 medium-4 columns">
-              <label>
-                  <u>Provider Number</u>
-              </label>
-              <p class="text-justify">
-                  {{provider.providerNumber}}
-              </p>
-          </div>
-          <div class="small-12 medium-4 columns">
-              <label>
-                  <u>DBA</u>
-              </label>
-              <p class="text-justify">
-                  {{provider.dba}}
-              </p>
-          </div>
-      </div>
-  </div>
-	`,
+    templateUrl: '../../templates/providerView.html',
 })
 export class ProviderViewComponent implements OnInit {
     public provider: Provider = {};

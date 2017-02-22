@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Modules
 import { AuthModule } from '../../library/modules/auth/auth.module';
@@ -24,7 +24,7 @@ import { ContactTableComponent } from './components/contactTable.component';
 import { ContactService } from './services/contact.service';
 
 @NgModule({
-    'imports': [CommonModule, FormsModule, RoutingModule, AuthModule, ModalModule, PaginationModule],
+    'imports': [CommonModule, ReactiveFormsModule, RoutingModule, AuthModule, ModalModule, PaginationModule],
     'declarations': [ContactSearchComponent, ContactViewComponent, ContactEditComponent, ContactFormComponent, ContactListComponent, ContactTableComponent],
     'providers': [ContactService],
     'exports': [ContactTableComponent]

@@ -5,10 +5,10 @@ import { NgModule }      from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 
 // Component Views
-import { PageNotFoundComponent } from './main/components/views/pageNotFound.component';
-import { HomeComponent } from './main/components/views/home.component';
-import { LoginComponent } from './main/components/views/login.component';
-import { RegisterComponent } from './main/components/views/register.component';
+import { PageNotFoundComponent } from './modules/main/components/views/pageNotFound.component';
+import { HomeComponent } from './modules/main/components/views/home.component';
+import { LoginComponent } from './modules/main/components/views/login.component';
+import { RegisterComponent } from './modules/main/components/views/register.component';
 
 import { DataResolver } from './app.resolver';
 

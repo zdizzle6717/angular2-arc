@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Provider } from '../types/provider';
-import { CustomHttpService } from '../../../main/services/customHttp.service';
+import { CustomHttpService } from '../../main/services/customHttp.service';
 
 @Injectable()
 export class ProviderService {
