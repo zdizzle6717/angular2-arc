@@ -1,5 +1,7 @@
+import { LoaderModule } from './loader.module';
 import { LoaderService } from './services/loader.service';
 
 export {
-    LoaderService
+	LoaderModule,
+  LoaderService
 }

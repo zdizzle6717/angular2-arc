@@ -1,9 +1,12 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import 'rxjs/add/operator/switchMap';
+import { Subscription } from 'rxjs/Subscription';
 import { User } from '../../types/user';
 import { AlertService } from '../../../../library/modules/alerts';
 import { UserService } from '../../../../library/modules/auth';
+import { ValidationService } from '../../../../library/modules/validation';
 
 @Component({
     template: `
@@ -11,17 +14,21 @@ import { UserService } from '../../../../library/modules/auth';
 			<h1 class="push-bottom-2x">Login</h1>
 			<hr />
 			<div class="small-12 medium-6 medium-offset-3 large-4 large-offset-4 columns">
-				<form name="loginForm" (ngSubmit)="login(credentials)" #loginForm="ngForm">
+				<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
 					<div class="row">
 						<div class="form-group small-12 columns">
 							<label class="required">Username/Email</label>
-							<input type="text" name="username" [(ngModel)]="credentials.username" required/>
+							<validate [errors]="formErrors['username']">
+								<input type="text" formControlName="username" required/>
+							</validate>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group small-12 columns">
 							<label class="required">Password</label>
-							<input type="password" name="password" [(ngModel)]="credentials.password" required/>
+							<validate [errors]="formErrors['password']">
+								<input type="password" formControlName="password" required/>
+							</validate>
 						</div>
 					</div>
 					<div class="row">
@@ -37,17 +44,37 @@ import { UserService } from '../../../../library/modules/auth';
 		</div>
 	`
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
+    public subscription: Subscription;
+    public loginForm: FormGroup;
+    public formErrors: any;
     public credentials: User = {
         'isAuthenticated': false
     };
     private redirectConfig: any;
 
     constructor(
+        private router: Router,
+        private formBuilder: FormBuilder,
         private alertService: AlertService,
         private userService: UserService,
-        private router: Router
+        private validationService: ValidationService
     ) { }
+
+    public ngOnInit() {
+        this.subscription = this.validationService.forms$.subscribe((forms) => {
+            this.formErrors = forms['loginForm'];
+        });
+        this.buildForm();
+    }
+
+		public buildForm(): void {
+        this.loginForm = this.validationService.buildForm('loginForm', {
+            'username': [this.credentials.username, [Validators.required, Validators.minLength(8)]],
+            'password': [this.credentials.password, [Validators.required, Validators.minLength(8), this.validationService.simpleValidator('password')]]
+        });
+        this.loginForm.valueChanges.subscribe((data) => this.validationService.onValueChanged('loginForm', this.loginForm, data));
+    }
 
     public login(user: User) {
         this.userService.authenticate(user).subscribe((response: User) => {
@@ -87,5 +114,9 @@ export class LoginComponent {
         };
 
         this.alertService.addAlert(options[name]);
+    }
+
+    public ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

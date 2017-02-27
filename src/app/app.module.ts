@@ -1,7 +1,7 @@
 // Angular Dependencies
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
@@ -17,14 +17,9 @@ import AUTHORIZED_ROUTES from './configs/authorizedRoutes';
 import ROLE_CONFIG from './configs/roleConfig';
 
 // Modules
-import { AlertsModule } from './library/modules/alerts/alerts.module';
-import { AuthModule } from './library/modules/auth/auth.module';
 import { ContactsModule } from './modules/contacts/contacts.module';
 import { DemosModule } from './modules/demos/demos.module';
 import { ProvidersModule } from './modules/providers/providers.module';
-import { LoaderModule } from './library/modules/loader/loader.module';
-import { ModalModule } from './library/modules/modal/modal.module';
-import { PaginationModule } from './library/modules/pagination/pagination.module';
 
 // Routing
 import { RoutingModule } from './routing.module';
@@ -50,10 +45,12 @@ import { AppState, InternalStateType } from './app.service';
 import { CustomHttpProvider } from './modules/main/providers/customHttp.provider';
 
 // Library Imports for Dependency Injection
-import { AlertService } from './library/modules/alerts';
-import { LoaderService } from './library/modules/loader';
-import { ModalService } from './library/modules/modal';
-import { UserService } from './library/modules/auth';
+import { AlertsModule, AlertService } from './library/modules/alerts';
+import { AuthModule, UserService } from './library/modules/auth';
+import { LoaderModule, LoaderService } from './library/modules/loader';
+import { ModalModule, ModalService } from './library/modules/modal';
+import { PaginationModule } from './library/modules/pagination';
+import { ValidationModule, ValidationService } from './library/modules/validation';
 
 // Add root style sheet for compilation
 import '../styles/app.scss';
@@ -84,14 +81,17 @@ type StoreType = {
   ],
   imports: [ // import Angular's modules
     BrowserModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpModule,
 		ContactsModule,
 		DemosModule,
 		ProvidersModule,
 		AlertsModule,
 		LoaderModule,
-		RoutingModule
+		ModalModule,
+		RoutingModule,
+		PaginationModule,
+		ValidationModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
@@ -103,7 +103,8 @@ type StoreType = {
     AlertService,
     LoaderService,
     ModalService,
-    UserService
+    UserService,
+		ValidationService
   ]
 })
 export class AppModule {

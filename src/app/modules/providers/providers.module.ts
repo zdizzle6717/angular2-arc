@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Modules
 import { AuthModule } from '../../library/modules/auth/auth.module';
 import { ModalModule } from '../../library/modules/modal/modal.module';
+import { ValidationModule } from '../../library/modules/validation';
 
 // Routing
 import { RoutingModule } from './routing.module';
@@ -20,12 +21,13 @@ import { ProviderListComponent } from './components/providerList.component';
 import { ProviderTableComponent } from './components/providerTable.component';
 
 // Services
+import { AuthGuard } from '../../library/modules/auth/services/authGuard.service';
 import { ProviderService } from './services/provider.service';
 
 @NgModule({
-  'imports': [ CommonModule, FormsModule, RoutingModule, AuthModule, ModalModule ],
+  'imports': [ CommonModule, ReactiveFormsModule, RoutingModule, AuthModule, ModalModule, ValidationModule ],
   'declarations': [ ProviderSearchComponent, ProviderViewComponent, ProviderEditComponent, ProviderFormComponent, ProviderListComponent, ProviderTableComponent ],
-	'providers': [ ProviderService ],
+	'providers': [ AuthGuard, ProviderService ],
   'exports': [ ProviderTableComponent ]
 })
 export class ProvidersModule { }

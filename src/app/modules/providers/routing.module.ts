@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../../library/modules/auth';
 
 // Component Views
 import { ProviderSearchComponent } from './components/views/providerSearch.component';
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
     {
         'path': 'providers/create',
         'component': ProviderEditComponent,
-        'data': { 'title': 'Angular2 | Create Provider' }
+				'canActivate': [AuthGuard],
+        'data': { 'title': 'Angular2 | Create Provider', accessLevel: ['providerAdmin'] }
     },
     {
         'path': 'providers/:id',
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     {
         'path': 'providers/:id/edit',
         'component': ProviderEditComponent,
-        'data': { 'title': 'Angular2 | Edit Providers' }
+				'canActivate': [AuthGuard],
+        'data': { 'title': 'Angular2 | Edit Providers', accessLevel: ['providerAdmin'] }
     }
 ];
 

@@ -1,0 +1,6 @@
+<div class="validate-error-element">
+	<ng-content></ng-content>
+	<div class="validate-errors">
+		<div class="validate-error" *ngFor="let error of inputErrors">{{error}}</div>
+	</div>
+</div>

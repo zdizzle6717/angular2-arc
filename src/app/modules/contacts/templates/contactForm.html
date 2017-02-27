@@ -1,78 +1,91 @@
 <h1 *ngIf="!contact.id">Create New Contact</h1>
 <h1 *ngIf="contact.id">Edit Contact</h1>
-<form [formGroup]="contactForm" class="row" (ngSubmit)="saveContact(contactForm.value)">
+<form class="row" [formGroup]="contactForm" (ngSubmit)="saveContact(contactForm.value)">
 	<div class="form-group">
 		<div class="small-12 medium-3 columns">
 			<label for="firstName" class="required">First Name</label>
-			<input type="text" class="form-control" id="firstName" formControlName="firstName" required>
+			<validate [errors]="formErrors['firstName']">
+				<input type="text" class="form-control" id="firstName" formControlName="firstName" required>
+			</validate>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="middleName" class="required">Middle Name</label>
-			<input type="text" class="form-control" id="middleName" formControlName="middleName" required>
+			<validate [errors]="formErrors['middleName']">
+				<input type="text" class="form-control" id="middleName" formControlName="middleName" required>
+			</validate>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="lastName" class="required">Last Name</label>
-			<input type="text" class="form-control" id="lastName" formControlName="lastName" required>
+			<validate [errors]="formErrors['lastName']">
+				<input type="text" class="form-control" id="lastName" formControlName="lastName" required>
+			</validate>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="gender" class="required">Gender</label>
-			<select id="gender" formControlName="gender" required>
-				<option value="male">Male</option>
-				<option value="female">Female</option>
-			</select>
+			<validate [errors]="formErrors['gender']">
+				<select id="gender" formControlName="gender" required>
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+				</select>
+			</validate>
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="small-12 medium-3 columns">
 			<label for="email" class="required">Email</label>
-			<input type="text" class="form-control" id="email" formControlName="email" required>
+			<validate [errors]="formErrors['email']">
+				<input type="text" class="form-control" id="email" formControlName="email" required>
+			</validate>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="mobilePhone" class="required">Mobile Phone</label>
-			<input type="text" class="form-control" id="mobilePhone" formControlName="mobilePhone" required>
+			<validate [errors]="formErrors['mobilePhone']">
+				<input type="text" class="form-control" id="mobilePhone" formControlName="mobilePhone" required>
+			</validate>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="fax" class="required">Fax</label>
-			<input type="text" class="form-control" id="fax" formControlName="fax" required>
+			<validate [errors]="formErrors['fax']">
+				<input type="text" class="form-control" id="fax" formControlName="fax" required>
+			</validate>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label for="type" class="required">Type</label>
-			<select id="type" formControlName="type" required>
-				<option value="contact">Contact</option>
-				<option value="user">User</option>
-			</select>
+			<validate [errors]="formErrors['type']">
+				<select id="type" formControlName="type" required>
+					<option value="contact">Contact</option>
+					<option value="user">User</option>
+				</select>
+			</validate>
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="small-12 medium-3 columns">
 			<label for="status" class="small-12 inline required">
-				<input type="checkbox" class="form-control" id="status" formControlName="status" required> Active?
+				<validate [errors]="formErrors['status']">
+					<input type="checkbox" class="form-control" id="status" formControlName="status" required> Active?
+				</validate>
 			</label>
 		</div>
 		<div class="small-12 medium-3 columns">
 			<label class="required">Marital Status</label>
-			<label class="small-12 inline">
-				<input type="radio" class="form-control" formControlName="maritalStatus" value="single" required>Single
-			</label>
-			<label class="small-12 inline">
-				<input type="radio" class="form-control" formControlName="maritalStatus" value="married" required>Married
-			</label>
-			<label class="small-12 inline">
-				<input type="radio" class="form-control" formControlName="maritalStatus" value="other" required>Other
-			</label>
+			<validate [errors]="formErrors['maritalStatus']">
+				<label class="small-12 inline">
+						<input type="radio" class="form-control" formControlName="maritalStatus" value="single" required>Single
+				</label>
+				<label class="small-12 inline">
+						<input type="radio" class="form-control" formControlName="maritalStatus" value="married" required>Married
+				</label>
+				<label class="small-12 inline">
+					<input type="radio" class="form-control" formControlName="maritalStatus" value="other" required>Other
+				</label>
+			</validate>
 		</div>
 	</div>
 	<div class="form-group text-right">
 		<div class="small-12 columns">
 			<button type="submit" class="button" [disabled]="contactForm.invalid" *ngIf="!contact.id">Create Contact</button>
 			<button type="submit" class="button" [disabled]="contactForm.invalid" *ngIf="contact.id">Update Contact</button>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="small-12 columns">
-			<pre>
-				{{formErrors | json}}
-			</pre>
 		</div>
 	</div>
 </form>

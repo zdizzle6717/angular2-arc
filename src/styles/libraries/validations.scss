@@ -8,12 +8,15 @@
 
 .validate-error-element {
 	position: relative;
+	min-width: 110px;
 }
 
 .validate-errors {
 	position: absolute;
 	height: 100%;
 	max-width: 100%;
+	min-height: 39px;
+	top:39px;
 	right: 0;
 	display: none;
 	color: $white-100;
@@ -68,6 +71,8 @@ textarea.ng-touched.ng-invalid {
 			line-height: 1;
 			height: auto;
 			z-index: 3;
+			min-width: 110px;
+			min-height: 0px;
 
 			&:before {
 				content: '';

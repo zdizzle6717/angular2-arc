@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../../library/modules/auth';
 
 // Component Views
 import { ContactSearchComponent } from './components/views/contactSearch.component';
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
     {
         'path': 'contacts/create',
         'component': ContactEditComponent,
-        'data': { 'title': 'Angular2 | Create Contact' }
+				'canActivate': [AuthGuard],
+        'data': { 'title': 'Angular2 | Create Contact', accessLevel: ['contactAdmin'] }
     },
     {
         'path': 'contacts/:id',
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     {
         'path': 'contacts/:id/edit',
         'component': ContactEditComponent,
-        'data': { 'title': 'Angular2 | Edit Contact' }
+				'canActivate': [AuthGuard],
+        'data': { 'title': 'Angular2 | Edit Contact', accessLevel: ['contactAdmin'] }
     }
 ];
 

@@ -1,33 +1,24 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import 'rxjs/add/operator/switchMap';
+import { Subscription } from 'rxjs/Subscription';
 import { Contact } from '../types/contact';
 import { ContactService } from '../services/contact.service';
 import { AlertService } from '../../../library/modules/alerts';
+import { ValidationService } from '../../../library/modules/validation';
 
 @Component({
     'selector': 'contact-form',
     templateUrl: '../templates/contactForm.html'
 })
-export class ContactFormComponent implements OnInit {
+export class ContactFormComponent implements OnInit, OnDestroy {
+    public subscription: Subscription;
     public contact: Contact = new Contact();
     public contacts: Contact[] = [];
     public contactForm: FormGroup;
-    public formErrors = {
-        'firstName': '',
-        'lastName': ''
-    };
-    public validationMessages = {
-        'firstName': {
-            'required': 'Name is required.',
-            'maxlength': 'Max length is 15.',
-            'forbiddenName': 'This name is forbidden.'
-        },
-        'lastName': {
-            'required': 'Power is required.'
-        }
-    };
+    public formErrors: any;
+
     private submitted = false;
 
     constructor(
@@ -35,10 +26,14 @@ export class ContactFormComponent implements OnInit {
         private contactService: ContactService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private validationService: ValidationService
     ) { }
 
     public ngOnInit() {
+        this.subscription = this.validationService.forms$.subscribe((forms) => {
+            this.formErrors = forms['contactForm'];
+        });
         this.buildForm();
         this.route.params
             .switchMap((params: Params) => {
@@ -55,50 +50,19 @@ export class ContactFormComponent implements OnInit {
     }
 
     public buildForm(): void {
-        this.contactForm = this.formBuilder.group({
-            'firstName': [this.contact.firstName, [Validators.required, Validators.maxLength(15), this.nameValidator(/bob/i)]],
-            'middleName': [this.contact.middleName, [Validators.required]],
-            'lastName': [this.contact.lastName, [Validators.required]],
+        this.contactForm = this.validationService.buildForm('contactForm', {
+            'firstName': [this.contact.firstName, [Validators.required, Validators.maxLength(15), this.validationService.simpleValidator('name')]],
+            'middleName': [this.contact.middleName, [Validators.required, this.validationService.simpleValidator('name')]],
+            'lastName': [this.contact.lastName, [Validators.required, this.validationService.simpleValidator('name')]],
             'gender': [this.contact.gender, [Validators.required]],
-            'email': [this.contact.email, [Validators.required]],
-            'mobilePhone': [this.contact.mobilePhone, [Validators.required]],
-            'fax': [this.contact.fax, [Validators.required]],
+            'email': [this.contact.email, [Validators.required, this.validationService.simpleValidator('email')]],
+            'mobilePhone': [this.contact.mobilePhone, [Validators.required, this.validationService.simpleValidator('domesticPhone')]],
+            'fax': [this.contact.fax, [Validators.required, this.validationService.simpleValidator('domesticPhone')]],
             'type': [this.contact.type, [Validators.required]],
             'status': [this.contact.status, [Validators.required]],
             'maritalStatus': [this.contact.maritalStatus, [Validators.required]],
         });
-        this.contactForm.valueChanges
-            .subscribe((data) => this.onValueChanged(data));
-        this.onValueChanged();
-    }
-
-    public nameValidator(regEx: RegExp): ValidatorFn {
-        return (control: AbstractControl): { [key: string]: any } => {
-            const name = control.value;
-            const forbidden = regEx.test(name);
-            return forbidden ? { 'forbiddenName': { name } } : null;
-        };
-    }
-
-    public onValueChanged(data?: any) {
-        if (!this.contactForm) { return; }
-        const form = this.contactForm;
-        for (const field in this.formErrors) {
-            if (this.formErrors.hasOwnProperty(field)) {
-                this.formErrors[field] = '';
-                const control = form.get(field);
-                if (control && control.dirty && !control.valid) {
-                    const messages = this.validationMessages[field];
-                    for (const key in control.errors) {
-                        if (control.errors.hasOwnProperty(key)) {
-                            console.log(messages);
-                            console.log(key);
-                            this.formErrors[field] += messages[key] + ' ';
-                        }
-                    }
-                }
-            }
-        }
+        this.contactForm.valueChanges.subscribe((data) => this.validationService.onValueChanged('contactForm', this.contactForm, data));
     }
 
     public saveContact(contact: Contact) {
@@ -138,4 +102,8 @@ export class ContactFormComponent implements OnInit {
 
         this.alertService.addAlert(options[name]);
     }
+
+		public ngOnDestroy() {
+			this.subscription.unsubscribe();
+		}
 }

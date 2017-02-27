@@ -8,15 +8,15 @@ import { DemoListComponent } from './components/views/demoList.component';
 // Route Config
 const appRoutes: Routes = [
 	{
-		path: 'demos',
-		component: DemoListComponent,
-		canActivate: [AuthGuard],
-		data: { title: 'Angular2 | Demos', accessLevel: ['siteAdmin'] }
+		'path': 'demos',
+		'component': DemoListComponent,
+		'canActivate': [AuthGuard],
+		'data': { title: 'Angular2 | Demos', accessLevel: ['siteAdmin'] }
 	}
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(appRoutes) ],
-  exports: [ RouterModule ]
+  'imports': [ RouterModule.forChild(appRoutes) ],
+  'exports': [ RouterModule ]
 })
 export class RoutingModule { }
