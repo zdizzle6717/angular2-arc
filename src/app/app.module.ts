@@ -35,8 +35,9 @@ import { RegisterComponent } from './modules/main/components/views/register.comp
 
 // Components
 import { AppComponent } from './app.component'; // Top level component
-import { HeaderComponent } from './modules/main/components/header.component';
 import { FooterComponent } from './modules/main/components/footer.component';
+import { GooeyMenuComponent } from './modules/main/components/gooeyMenu.component';
+import { HeaderComponent } from './modules/main/components/header.component';
 
 // Directives
 
@@ -72,8 +73,9 @@ type StoreType = {
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-		HeaderComponent,
 		FooterComponent,
+		GooeyMenuComponent,
+		HeaderComponent,
     HomeComponent,
 		LoginComponent,
 		PageNotFoundComponent,

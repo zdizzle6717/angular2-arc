@@ -31,6 +31,7 @@ import { User } from './types/user';
 	      <router-outlet></router-outlet>
 	    </main>
 		</div>
+		<gooey-menu></gooey-menu>
 		<alerts></alerts>
 		<loader type="bars"></loader>
     <site-footer></site-footer>
